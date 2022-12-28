@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  app:
+    restart: always
+    build: ./war
+    container_name: tomcat
+    volumes:
+      - ./war/bs-service.war:/usr/local/tomcat/webapps/app.war
+    
+    entrypoint: [ "sh","-c","java -Djava.security.egd=file:/dev/./urandom -jar /usr/local/tomcat/webapps/app.war" ]
+    command: ["catalina.sh", "run"]
+    ports:
+      - 8080:8080
